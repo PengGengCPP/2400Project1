@@ -1,0 +1,10 @@
+{
+    "liveshare.accessibility.accessibilityFeaturesEnabled": true,
+    "liveshare.allowGuestDebugControl": true,
+    "liveshare.allowGuestTaskControl": true,
+    "liveshare.languages.allowGuestCommandControl": true,
+    "java.project.sourcePaths": [
+        "src",
+        ""
+    ]
+}
