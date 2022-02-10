@@ -78,4 +78,7 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 		return null;
 	}
     
+	private class Node {
+		//TODO inner class for node
+	}
 }
