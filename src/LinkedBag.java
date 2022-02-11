@@ -52,6 +52,7 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 			return true;
 		} else {
 			firstNode = new Node(newEntry, firstNode);
+			this.numEntries++;
 			return true;
 		}
 		return false; // idk lol
