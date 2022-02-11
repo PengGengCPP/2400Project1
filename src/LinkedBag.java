@@ -1,4 +1,11 @@
 public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<LinkedBag<T>> {
+	private Node firstNode;
+	private int numEntries;
+	
+	public LinkedBag() {
+		this.firstNode = null;
+		this.numEntries = 0;
+	}
 
 	@Override
 	public LinkedBag<T> union(LinkedBag<T> bag2) {
@@ -38,8 +45,16 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 
 	@Override
 	public boolean add(T newEntry) {
-		// TODO Auto-generated method stub
-		return false;
+		if (numEntries == 0) {
+			Node tempNode = new Node(newEntry, null);
+			this.firstNode = tempNode;
+			this.numEntries++;
+			return true;
+		} else {
+			firstNode = new Node(newEntry, firstNode);
+			return true;
+		}
+		return false; // idk lol
 	}
 
 	@Override
@@ -79,6 +94,41 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 	}
     
 	private class Node {
+		//accessible within the linkedbag class, not accessible to the client.
 		//TODO inner class for node
+		private T data;
+		private Node nextNode;
+
+		Node() {
+			this.data = null;
+			this.nextNode = null;
+		}
+
+		Node(T item) {
+			this.data = item;
+			this.nextNode = null;
+		}
+
+		Node (T item, Node nextNode) {
+			this.data = item;
+			this.nextNode = nextNode;
+		}
+
+		public T getData() {
+			return data;
+		}
+
+		public void setData(T data) {
+			this.data = data;
+		}
+
+		public Node getNextNode() {
+			return nextNode;
+		}
+
+		public void setSecondNode(Node secondNode) {
+			this.nextNode = secondNode;
+		}
+
 	}
 }
