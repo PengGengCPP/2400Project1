@@ -44,8 +44,6 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 		}
 	}
 
-	public 
-
 	@Override
 	public ResizableArrayBag<T> union(ResizableArrayBag<T> bag2) {
 		// TODO Auto-generated method stub
@@ -81,6 +79,10 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	public boolean add(T newEntry) {
 		checkIntegrity();
 		
+		if (isFull()) {
+			doubleArrayCapacity();
+		}
+
 		if(isFull()) {
 			return false;
 		} else {
@@ -93,23 +95,35 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	@Override
 	public T remove() {
 		checkIntegrity();
-
-		
+		T ret = null;
+		if(!isEmpty()) {
+			ret = this.bag[numItems - 1];
+			this.bag[numItems - 1] = null;
+			this.numItems--;
+		}
+		return ret;
 	}
 
 	@Override
 	public boolean remove(T entry) {
-		// TODO Auto-generated method stu
 		checkIntegrity();
 
+		for (int i = 0; i < bag.length; i++) {
+			if (this.bag[i].equals(entry)) {
+				this.bag[i] = this.bag[numItems];
+				this.bag[numItems] = null;
+				numItems--;
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public void clear() {
-		@SuppressWarnings("unchecked")
-		this.bag = (T[]) new Object[DEFAULT_SIZE];
-		this.numItems = 0;
+		while (!isEmpty()) {
+			remove();
+		}
 	}
 
 	@Override
@@ -125,6 +139,7 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 
 	@Override
 	public boolean contains(T entry) {
+		checkIntegrity();
 		for (int i = 0; i < numItems; i++) {
 			if (entry.equals(this.bag[i])) {
 				return true;
