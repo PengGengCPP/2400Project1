@@ -1,3 +1,4 @@
+package Bags;
 import java.util.Arrays;
 
 public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInterface<ResizableArrayBag<T>> {
@@ -9,13 +10,13 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	private boolean integrityOk = false;
 	//constructors
 
-	ResizableArrayBag() {
+	public ResizableArrayBag() {
 		@SuppressWarnings("unchecked") //ok bc items will have to be of type T
 		T[] tempBag = (T[]) new Object[DEFAULT_SIZE];
 		this.bag = tempBag;
 	}
 
-	ResizableArrayBag(int size) {
+	public ResizableArrayBag(int size) {
 		checkCapacity(size);
 		if (size <= MAX_CAPACITY) {
 			integrityOk= true;
@@ -108,12 +109,14 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	public boolean remove(T entry) {
 		checkIntegrity();
 
-		for (int i = 0; i < bag.length; i++) {
-			if (this.bag[i].equals(entry)) {
-				this.bag[i] = this.bag[numItems];
-				this.bag[numItems] = null;
-				numItems--;
-				return true;
+		if(!isEmpty()) {
+			for (int i = 0; i < this.numItems; i++) {
+				if (this.bag[i].equals(entry)) {
+					this.bag[i] = this.bag[numItems - 1];
+					this.bag[numItems - 1] = null;
+					numItems--;
+					return true;
+				}
 			}
 		}
 		return false;

@@ -1,3 +1,4 @@
+package Bags;
 public interface BagSetOperationInterface<T> {
     /**
      * Returns an instance of the union 

@@ -1,3 +1,4 @@
+package Bags;
 
 public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<LinkedBag<T>> {
 	private Node firstNode;
