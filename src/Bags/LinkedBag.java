@@ -4,6 +4,8 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 	private Node firstNode;
 	private int numEntries;
 	
+	//todo implement upper limit to the bag
+
 	public LinkedBag() {
 		this.firstNode = null;
 		this.numEntries = 0;
