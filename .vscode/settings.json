@@ -6,5 +6,9 @@
     "java.project.sourcePaths": [
         "src",
         ""
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Kyung Ho Min\\Documents\\VS Code\\Java Libraries\\JUnit 5\\junit-platform-console-standalone-1.8.2-sources.jar"
     ]
 }
