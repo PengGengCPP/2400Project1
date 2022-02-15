@@ -3,11 +3,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Bags.ResizableArrayBag;
 
 public class ResizableArrayBagTest {
+    private ResizableArrayBag<String> setTest1;
+    private ResizableArrayBag<String> setTest2;
+    
+    @BeforeEach
+    void init() {
+        setTest1 = new ResizableArrayBag<String>();
+        setTest1.add("one");
+        setTest1.add("one");
+        setTest1.add("two");
+        setTest1.add("three");
+        setTest1.add("four");
+        setTest1.add("four");
+
+        setTest2 = new ResizableArrayBag<>();
+        setTest2.add("one");
+        setTest2.add("three");
+        setTest2.add("four");
+        setTest2.add("four");
+        setTest2.add("five");
+    }
+    
     @Test
     void testAdd() {
         ResizableArrayBag<String> test = new ResizableArrayBag<String>(4);
@@ -43,7 +65,22 @@ public class ResizableArrayBagTest {
 
     @Test
     void testDifference() {
+        ResizableArrayBag<String> differenceBag = setTest1.difference(setTest2);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(1, differenceBag.getFrequencyOf("one"));
+        assertEquals(1, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
 
+        //testing the other way around
+        differenceBag = setTest2.difference(setTest1);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(0, differenceBag.getFrequencyOf("one"));
+        assertEquals(0, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(1, differenceBag.getFrequencyOf("five"));
     }
 
     @Test
@@ -70,7 +107,22 @@ public class ResizableArrayBagTest {
 
     @Test
     void testIntersection() {
+        ResizableArrayBag<String> intersectionBag = setTest1.intersection(setTest2);
+        System.out.println(Arrays.toString(intersectionBag.toArray()));
+        assertEquals(1, intersectionBag.getFrequencyOf("one"));
+        assertEquals(0, intersectionBag.getFrequencyOf("two"));
+        assertEquals(1, intersectionBag.getFrequencyOf("three"));
+        assertEquals(2, intersectionBag.getFrequencyOf("four"));
+        assertEquals(0, intersectionBag.getFrequencyOf("five"));
 
+        //testing the reverse
+        intersectionBag = setTest2.intersection(setTest1);
+        System.out.println(Arrays.toString(intersectionBag.toArray()));
+        assertEquals(1, intersectionBag.getFrequencyOf("one"));
+        assertEquals(0, intersectionBag.getFrequencyOf("two"));
+        assertEquals(1, intersectionBag.getFrequencyOf("three"));
+        assertEquals(2, intersectionBag.getFrequencyOf("four"));
+        assertEquals(0, intersectionBag.getFrequencyOf("five"));
     }
 
     @Test
@@ -142,6 +194,24 @@ public class ResizableArrayBagTest {
 
     @Test
     void testUnion() {
+        ResizableArrayBag<String> unionBag = setTest1.union(setTest2);
 
+        System.out.println(Arrays.toString(unionBag.toArray()));
+        System.out.println(unionBag.getCurrentSize());
+        assertEquals(11, unionBag.getCurrentSize());
+        assertEquals(3, unionBag.getFrequencyOf("one"));
+        assertEquals(1, unionBag.getFrequencyOf("two"));
+        assertEquals(2, unionBag.getFrequencyOf("three"));
+        assertEquals(4, unionBag.getFrequencyOf("four"));
+        assertEquals(1, unionBag.getFrequencyOf("five"));
+
+        //test other way around 
+        unionBag = setTest2.union(setTest1);
+        assertEquals(11, unionBag.getCurrentSize());
+        assertEquals(3, unionBag.getFrequencyOf("one"));
+        assertEquals(1, unionBag.getFrequencyOf("two"));
+        assertEquals(2, unionBag.getFrequencyOf("three"));
+        assertEquals(4, unionBag.getFrequencyOf("four"));
+        assertEquals(1, unionBag.getFrequencyOf("five"));
     }
 }

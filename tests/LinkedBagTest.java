@@ -3,6 +3,8 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,13 @@ public class LinkedBagTest {
     private LinkedBag<String> test;
     private LinkedBag<String> empty;
 
+    private LinkedBag<String> setTest1;
+    private LinkedBag<String> setTest2;
+    private String[] setTest1Array;
+    private String[] setTest2Array;
+    private Set<String> setTest1Hash;
+    private Set<String> setTest2Hash;
+
     @BeforeEach
     void init() {
         test = new LinkedBag<String>();
@@ -21,6 +30,36 @@ public class LinkedBagTest {
         test.add("third");
 
         empty = new LinkedBag<String>();
+
+        setTest1 = new LinkedBag<String>();
+        setTest1.add("one");
+        setTest1.add("one");
+        setTest1.add("two");
+        setTest1.add("three");
+        setTest1.add("four");
+        setTest1.add("four");
+        
+        setTest2 = new LinkedBag<String>();
+        setTest2.add("one");
+        setTest2.add("three");
+        setTest2.add("four");
+        setTest2.add("four");
+        setTest2.add("five");
+
+        Object[] temporary1 = setTest1.toArray();
+        setTest1Array = Arrays.copyOf(temporary1, temporary1.length, String[].class);
+
+        Object[] temporary2 = setTest2.toArray();
+        setTest2Array = Arrays.copyOf(temporary2, temporary2.length, String[].class);
+
+        setTest1Hash = new HashSet<>();
+        for (int i = 0; i < setTest1Array.length; i++) {
+            setTest1Hash.add(setTest1Array[i]);
+        }
+        setTest2Hash = new HashSet<>();
+        for (int i = 0; i < setTest2Array.length; i++) {
+            setTest2Hash.add(setTest2Array[i]);
+        }
     }
     
     @Test
@@ -46,7 +85,22 @@ public class LinkedBagTest {
 
     @Test
     void testDifference() {
+        LinkedBag<String> differenceBag = setTest1.difference(setTest2);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(1, differenceBag.getFrequencyOf("one"));
+        assertEquals(1, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
 
+        //testing the other way around
+        differenceBag = setTest2.difference(setTest1);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(0, differenceBag.getFrequencyOf("one"));
+        assertEquals(0, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(1, differenceBag.getFrequencyOf("five"));
     }
 
     @Test
@@ -68,7 +122,22 @@ public class LinkedBagTest {
 
     @Test
     void testIntersection() {
+        LinkedBag<String> intersectionBag = setTest1.intersection(setTest2);
+        System.out.println(Arrays.toString(intersectionBag.toArray()));
+        assertEquals(1, intersectionBag.getFrequencyOf("one"));
+        assertEquals(0, intersectionBag.getFrequencyOf("two"));
+        assertEquals(1, intersectionBag.getFrequencyOf("three"));
+        assertEquals(2, intersectionBag.getFrequencyOf("four"));
+        assertEquals(0, intersectionBag.getFrequencyOf("five"));
 
+        //testing the reverse
+        intersectionBag = setTest2.intersection(setTest1);
+        System.out.println(Arrays.toString(intersectionBag.toArray()));
+        assertEquals(1, intersectionBag.getFrequencyOf("one"));
+        assertEquals(0, intersectionBag.getFrequencyOf("two"));
+        assertEquals(1, intersectionBag.getFrequencyOf("three"));
+        assertEquals(2, intersectionBag.getFrequencyOf("four"));
+        assertEquals(0, intersectionBag.getFrequencyOf("five"));
     }
 
     @Test
@@ -109,6 +178,45 @@ public class LinkedBagTest {
 
     @Test
     void testUnion() {
+        Set<String> union = new HashSet<String>();
 
+        union.addAll(setTest1Hash);
+        union.addAll(setTest2Hash);
+
+        LinkedBag<String> unionBag = setTest1.union(setTest2);
+        Object[] temp = unionBag.toArray();
+        Set<String> unionArrayHash = new HashSet<String>();
+
+        for (int i = 0; i < temp.length; i++) {
+            unionArrayHash.add((String) temp[i]);
+        }
+
+        assertEquals(true, unionArrayHash.equals(union));
+        System.out.println(Arrays.toString(unionBag.toArray()));
+        System.out.println(unionBag.getCurrentSize());
+        assertEquals(11, unionBag.getCurrentSize());
+        assertEquals(3, unionBag.getFrequencyOf("one"));
+        assertEquals(1, unionBag.getFrequencyOf("two"));
+        assertEquals(2, unionBag.getFrequencyOf("three"));
+        assertEquals(4, unionBag.getFrequencyOf("four"));
+        assertEquals(1, unionBag.getFrequencyOf("five"));
+
+        Object[] temporary = unionBag.toArray();
+        String[] unionArray = Arrays.copyOf(temporary, temporary.length, String[].class);
+        Set<String> unionHash = new HashSet<>();
+        for (String var : unionArray) {
+            unionHash.add(var);
+        }
+        assertEquals(true, unionHash.equals(unionArrayHash));
+
+        //testing other way around
+        unionBag = setTest2.union(setTest1);
+        assertEquals(11, unionBag.getCurrentSize());
+        assertEquals(3, unionBag.getFrequencyOf("one"));
+        assertEquals(1, unionBag.getFrequencyOf("two"));
+        assertEquals(2, unionBag.getFrequencyOf("three"));
+        assertEquals(4, unionBag.getFrequencyOf("four"));
+        assertEquals(1, unionBag.getFrequencyOf("five"));
+        assertEquals(true, unionHash.equals(unionArrayHash));
     }
 }

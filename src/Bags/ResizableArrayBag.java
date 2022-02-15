@@ -6,11 +6,13 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	private T[] bag; //array that will store the references for objects in the bag
 	private int numItems = 0;
 	private final int MAX_CAPACITY = 100000;
-	private final int DEFAULT_SIZE = 10;
+	private final int DEFAULT_SIZE = 1;
 	private boolean integrityOk = false;
 	//constructors
 
 	public ResizableArrayBag() {
+		this.integrityOk = true;
+		checkIntegrity();
 		@SuppressWarnings("unchecked") //ok bc items will have to be of type T
 		T[] tempBag = (T[]) new Object[DEFAULT_SIZE];
 		this.bag = tempBag;
@@ -19,8 +21,9 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	public ResizableArrayBag(int size) {
 		checkCapacity(size);
 		if (size <= MAX_CAPACITY) {
-			integrityOk= true;
+			this.integrityOk= true;
 		}
+		checkIntegrity();
 		@SuppressWarnings("unchecked")
 		T[] tempBag = (T[]) new Object[size];
 		this.bag = tempBag;
@@ -47,20 +50,60 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 
 	@Override
 	public ResizableArrayBag<T> union(ResizableArrayBag<T> bag2) {
-		// TODO Auto-generated method stub
-		return null;
+		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
+
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
+		}
+		tempArray = bag2.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
+		}
+
+		return ret;
 	}
 
 	@Override
 	public ResizableArrayBag<T> intersection(ResizableArrayBag<T> bag2) {
-		// TODO Auto-generated method stub
-		return null;
+		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
+
+		//copy of bag2
+		ResizableArrayBag<T> bag2Copy = new ResizableArrayBag<>();
+		T[] tempArray = bag2.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			bag2Copy.add(tempArray[i]);
+		}
+		
+		//iterating through current bag and determining matches
+		tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			if (bag2Copy.contains(tempArray[i])) {
+				ret.add(tempArray[i]);
+				bag2Copy.remove(tempArray[i]);
+			}
+		}
+
+		return ret;
 	}
 
 	@Override
 	public ResizableArrayBag<T> difference(ResizableArrayBag<T> bag2) {
-		// TODO Auto-generated method stub
-		return null;
+		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
+
+		//copy current bag to return bag
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
+		}
+
+		//replace tempArray data with bag2 data and remove bag2 data from current bag
+		tempArray = bag2.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.remove(tempArray[i]);
+		}
+
+		return ret;
 	}
 
 	@Override

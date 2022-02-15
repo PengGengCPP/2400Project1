@@ -3,8 +3,8 @@ package Bags;
 public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<LinkedBag<T>> {
 	private Node firstNode;
 	private int numEntries;
-	
-	//todo implement upper limit to the bag
+	private final int MAX_CAPACITY = 100000;
+	//todo implement upper limit to the bag?
 
 	public LinkedBag() {
 		this.firstNode = null;
@@ -13,20 +13,70 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 
 	@Override
 	public LinkedBag<T> union(LinkedBag<T> bag2) {
-		// TODO Auto-generated method stub
-		return null;
+		LinkedBag<T> ret = new LinkedBag<T>();
+
+		//copy current bag to ret bag
+		Node currentNode = this.firstNode;
+		while (currentNode != null) {
+			ret.add(currentNode.getData());
+			currentNode = currentNode.getNextNode();
+		}
+
+		//add contents of the parameter bag to the return bag
+		currentNode = bag2.firstNode;
+		while (currentNode != null) {
+			ret.add(currentNode.getData());
+			currentNode = currentNode.getNextNode();
+		}
+
+		return ret;
 	}
 
 	@Override
 	public LinkedBag<T> intersection(LinkedBag<T> bag2) {
-		// TODO Auto-generated method stub
-		return null;
+		//can be directly compared to the first bag.
+		LinkedBag<T> ret = new LinkedBag<T>();
+		//need a copy for deletion to prevent double counting
+		LinkedBag<T> temp = new LinkedBag<T>();
+		//copying all items from bag2 to temp
+		Node bag2CurrentNode = bag2.firstNode;
+		while (bag2CurrentNode != null) {
+			temp.add(bag2CurrentNode.getData());
+			bag2CurrentNode = bag2CurrentNode.getNextNode();
+		}
+
+
+		Node currentNode = this.firstNode;
+		while (currentNode != null) {
+			if (temp.contains(currentNode.getData())) {
+				ret.add(currentNode.getData());
+				temp.remove(currentNode.getData());
+			}
+			currentNode = currentNode.getNextNode();
+		}
+
+		return ret;
 	}
 
 	@Override
 	public LinkedBag<T> difference(LinkedBag<T> bag2) {
-		// TODO Auto-generated method stub
-		return null;
+		LinkedBag<T> ret = new LinkedBag<T>();
+
+		//copy current bag to ret
+		Node currentNode = this.firstNode;
+		while (currentNode != null) {
+			ret.add(currentNode.getData());
+			currentNode = currentNode.getNextNode();
+		}
+
+		//remove item from parameter bag if it exists in the first bag
+		currentNode = bag2.firstNode;
+		while (currentNode != null) {
+			ret.remove(currentNode.getData());
+			currentNode = currentNode.getNextNode();
+		}
+
+		return ret;
 	}
 
 	@Override
