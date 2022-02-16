@@ -1,6 +1,11 @@
 package Bags;
 import java.util.Arrays;
 
+/**
+ * Resizable Array Bag implementation.
+ * Creates a resizable array bag that contains set operations of intersection, union, and difference.
+ * Interacting with this object uses the bag interface.
+ */
 public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInterface<ResizableArrayBag<T>> {
 
 	private T[] bag; //array that will store the references for objects in the bag

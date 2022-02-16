@@ -1,10 +1,12 @@
 package Bags;
-
+/**
+ * Linked Bag implementation.
+ * Creates a linked bag that contains set operations of intersection, union, and difference.
+ * Interacting with this object uses the bag interface.
+ */
 public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<LinkedBag<T>> {
 	private Node firstNode;
 	private int numEntries;
-	private final int MAX_CAPACITY = 100000;
-	//todo implement upper limit to the bag?
 
 	public LinkedBag() {
 		this.firstNode = null;
@@ -207,6 +209,9 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
     
 	private class Node {
 		//accessible within the linkedbag class, not accessible to the client.
+		/**
+		 * Class that defines the Node object used for the implementation of the linked bag.
+		 */
 		private T data;
 		private Node nextNode;
 
