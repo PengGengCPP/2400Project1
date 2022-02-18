@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Creates a resizable array bag that contains set operations of intersection, union, and difference.
  * Interacting with this object uses the bag interface.
  */
-public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInterface<ResizableArrayBag<T>> {
+public class ResizableArrayBag<T> implements BagInterface<T> {
 
 	private T[] bag; //array that will store the references for objects in the bag
 	private int numItems = 0;
@@ -70,6 +70,11 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	}
 
 	@Override
+	public LinkedBag<T> union(LinkedBag<T> bag2) {
+		return null;
+	}
+
+	@Override
 	public ResizableArrayBag<T> intersection(ResizableArrayBag<T> bag2) {
 		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
 
@@ -93,6 +98,11 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 	}
 
 	@Override
+	public LinkedBag<T> intersection(LinkedBag<T> bag2) {
+		return null;
+	}
+
+	@Override
 	public ResizableArrayBag<T> difference(ResizableArrayBag<T> bag2) {
 		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
 
@@ -109,6 +119,11 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 		}
 
 		return ret;
+	}
+
+	@Override
+	public LinkedBag<T> difference(LinkedBag<T> bag2) {
+		return null;
 	}
 
 	@Override

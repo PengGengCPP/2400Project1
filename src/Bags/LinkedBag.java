@@ -4,7 +4,7 @@ package Bags;
  * Creates a linked bag that contains set operations of intersection, union, and difference.
  * Interacting with this object uses the bag interface.
  */
-public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<LinkedBag<T>> {
+public class LinkedBag<T> implements BagInterface<T> {
 	private Node firstNode;
 	private int numEntries;
 
@@ -32,6 +32,11 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 		}
 
 		return ret;
+	}
+	
+	@Override
+	public ResizableArrayBag<T> union(ResizableArrayBag<T> bag2) {
+		return null;
 	}
 
 	@Override
@@ -61,6 +66,11 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 	}
 
 	@Override
+	public ResizableArrayBag<T> intersection(ResizableArrayBag<T> bag2) {
+		return null;
+	}
+
+	@Override
 	public LinkedBag<T> difference(LinkedBag<T> bag2) {
 		LinkedBag<T> ret = new LinkedBag<T>();
 
@@ -79,6 +89,11 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 		}
 
 		return ret;
+	}
+
+	@Override
+	public ResizableArrayBag<T> difference(ResizableArrayBag<T> bag2) {
+		return null;
 	}
 
 	@Override

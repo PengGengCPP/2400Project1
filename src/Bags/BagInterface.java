@@ -57,4 +57,40 @@ public interface BagInterface<T> {
      * @return array of references or primitive data types of the items contained in the bag.
      */
     public T[] toArray();
+    /**
+     * Combines the contents of two bags into a new bag.
+     * @param bag2 The bag whose contents will be combined with those of the bag that called this method
+     * @return A new bag containing the contents of the two previous bags
+     */
+    public ResizableArrayBag<T> union(ResizableArrayBag<T> bag2);
+    /**
+     * Finds entries occurring in two bags simultaneously.
+     * @param bag2 The bag whose contents will be searched for entries occurring in both bags
+     * @return A new bag with entries found to occur in both of the previous bags
+     */
+    public ResizableArrayBag<T> intersection(ResizableArrayBag<T> bag2);
+    /**
+     * Finds entries occurring in the first bag that do not occur in the second bag
+     * @param bag2 The bag whose contents will be searched for entries occurring in both bags
+     * @return A new bag containing the entries found in the first bag but not bag2
+     */
+    public ResizableArrayBag<T> difference(ResizableArrayBag<T> bag2);
+    /**
+     * Combines the contents of two bags into a new bag.
+     * @param bag2 The bag whose contents will be combined with those of the bag that called this method
+     * @return A new bag containing the contents of the two previous bags
+     */
+    public LinkedBag<T> union(LinkedBag<T> bag2);
+    /**
+     * Finds entries occurring in two bags simultaneously.
+     * @param bag2 The bag whose contents will be searched for entries occurring in both bags
+     * @return A new bag with entries found to occur in both of the previous bags
+     */
+    public LinkedBag<T> intersection(LinkedBag<T> bag2);
+    /**
+     * Finds entries occurring in the first bag that do not occur in the second bag
+     * @param bag2 The bag whose contents will be searched for entries occurring in both bags
+     * @return A new bag containing the entries found in the first bag but not bag2
+     */
+    public LinkedBag<T> difference(LinkedBag<T> bag2);
 }
