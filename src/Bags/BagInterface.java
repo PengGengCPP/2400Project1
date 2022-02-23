@@ -1,6 +1,6 @@
 package Bags;
 public interface BagInterface<T> {
-    
+
     /**
      * Gets the current size of the bag.
      * @return size of the bag as an integer

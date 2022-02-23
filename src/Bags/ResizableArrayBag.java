@@ -1,5 +1,9 @@
 package Bags;
 import java.util.Arrays;
+import java.util.InputMismatchException;
+
+//todo: sanitize bag inputs to throw exception if input is null
+//todo: make bags compatible with eachother. likely will require changing interface.
 
 /**
  * Resizable Array Bag implementation.
@@ -7,7 +11,7 @@ import java.util.Arrays;
  * Interacting with this object uses the bag interface.
  */
 public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInterface<ResizableArrayBag<T>> {
-
+	
 	private T[] bag; //array that will store the references for objects in the bag
 	private int numItems = 0;
 	private final int MAX_CAPACITY = 100000;
@@ -55,6 +59,10 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 
 	@Override
 	public ResizableArrayBag<T> union(ResizableArrayBag<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
 
 		T[] tempArray = this.toArray();
@@ -71,6 +79,10 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 
 	@Override
 	public ResizableArrayBag<T> intersection(ResizableArrayBag<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+
 		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
 
 		//copy of bag2
@@ -94,6 +106,10 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 
 	@Override
 	public ResizableArrayBag<T> difference(ResizableArrayBag<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
 
 		//copy current bag to return bag
@@ -218,5 +234,9 @@ public class ResizableArrayBag<T> implements BagInterface<T>, BagSetOperationInt
 		}
 		return false;
 	}
-    
+
+	public T clone() {
+		return null;
+		
+	}
 }

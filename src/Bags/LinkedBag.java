@@ -1,4 +1,10 @@
 package Bags;
+
+import java.util.InputMismatchException;
+
+//todo: sanitize bag inputs to throw exception if input is null
+//todo: make bags compatible with eachother. likely will require changing interface.
+
 /**
  * Linked Bag implementation.
  * Creates a linked bag that contains set operations of intersection, union, and difference.
@@ -15,6 +21,10 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 
 	@Override
 	public LinkedBag<T> union(LinkedBag<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		LinkedBag<T> ret = new LinkedBag<T>();
 
 		//copy current bag to ret bag
@@ -36,6 +46,10 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 
 	@Override
 	public LinkedBag<T> intersection(LinkedBag<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		//can be directly compared to the first bag.
 		LinkedBag<T> ret = new LinkedBag<T>();
 		//need a copy for deletion to prevent double counting
@@ -62,6 +76,10 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 
 	@Override
 	public LinkedBag<T> difference(LinkedBag<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		LinkedBag<T> ret = new LinkedBag<T>();
 
 		//copy current bag to ret
