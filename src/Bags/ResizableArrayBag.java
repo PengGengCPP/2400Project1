@@ -2,9 +2,6 @@ package Bags;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
-//todo: sanitize bag inputs to throw exception if input is null
-//todo: make bags compatible with eachother. likely will require changing interface.
-
 /**
  * Resizable Array Bag implementation.
  * Creates a resizable array bag that contains set operations of intersection, union, and difference.
