@@ -1,6 +1,5 @@
 package Bags;
 public interface BagInterface<T> {
-    
     /**
      * Gets the current size of the bag.
      * @return size of the bag as an integer
@@ -57,4 +56,23 @@ public interface BagInterface<T> {
      * @return array of references or primitive data types of the items contained in the bag.
      */
     public T[] toArray();
+
+    /**
+     * Returns an instance of the union 
+     * @param bag2 the second bag for the union
+     * @return bag containing the contents of the union between the bag which the method was called on and the bag that is passed as a parameter.
+     */
+    public BagInterface<T> union(BagInterface<T> bag2);
+    /**
+     * Returns instance of the intersection
+     * @param bag2 second bag for intersection
+     * @return bag with elements that intersect between the bag which the method was called on and the bag passed as a parameter
+     */
+    public BagInterface<T> intersection(BagInterface<T> bag2);
+    /**
+     * Returns instance of the difference
+     * @param bag2
+     * @return bag with the difference between the bag which the method was called on and the bag passed as a parameter
+     */
+    public BagInterface<T> difference(BagInterface<T> bag2);
 }

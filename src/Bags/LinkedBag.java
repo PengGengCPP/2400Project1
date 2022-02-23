@@ -1,10 +1,16 @@
 package Bags;
+
+import java.util.InputMismatchException;
+
+//todo: sanitize bag inputs to throw exception if input is null
+//todo: make bags compatible with eachother. likely will require changing interface.
+
 /**
  * Linked Bag implementation.
  * Creates a linked bag that contains set operations of intersection, union, and difference.
  * Interacting with this object uses the bag interface.
  */
-public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<LinkedBag<T>> {
+public class LinkedBag<T> implements BagInterface<T> {
 	private Node firstNode;
 	private int numEntries;
 
@@ -14,68 +20,70 @@ public class LinkedBag<T> implements BagInterface<T>, BagSetOperationInterface<L
 	}
 
 	@Override
-	public LinkedBag<T> union(LinkedBag<T> bag2) {
+	public LinkedBag<T> union(BagInterface<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		LinkedBag<T> ret = new LinkedBag<T>();
 
-		//copy current bag to ret bag
-		Node currentNode = this.firstNode;
-		while (currentNode != null) {
-			ret.add(currentNode.getData());
-			currentNode = currentNode.getNextNode();
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
 		}
-
-		//add contents of the parameter bag to the return bag
-		currentNode = bag2.firstNode;
-		while (currentNode != null) {
-			ret.add(currentNode.getData());
-			currentNode = currentNode.getNextNode();
+		tempArray = bag2.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
 		}
 
 		return ret;
 	}
 
 	@Override
-	public LinkedBag<T> intersection(LinkedBag<T> bag2) {
-		//can be directly compared to the first bag.
-		LinkedBag<T> ret = new LinkedBag<T>();
-		//need a copy for deletion to prevent double counting
-		LinkedBag<T> temp = new LinkedBag<T>();
-		//copying all items from bag2 to temp
-		Node bag2CurrentNode = bag2.firstNode;
-		while (bag2CurrentNode != null) {
-			temp.add(bag2CurrentNode.getData());
-			bag2CurrentNode = bag2CurrentNode.getNextNode();
+	public LinkedBag<T> intersection(BagInterface<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
 		}
 
+		LinkedBag<T> ret = new LinkedBag<T>();
 
-		Node currentNode = this.firstNode;
-		while (currentNode != null) {
-			if (temp.contains(currentNode.getData())) {
-				ret.add(currentNode.getData());
-				temp.remove(currentNode.getData());
+		//copy of bag2
+		LinkedBag<T> bag2Copy = new LinkedBag<>();
+		T[] tempArray = bag2.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			bag2Copy.add(tempArray[i]);
+		}
+		
+		//iterating through current bag and determining matches
+		tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			if (bag2Copy.contains(tempArray[i])) {
+				ret.add(tempArray[i]);
+				bag2Copy.remove(tempArray[i]);
 			}
-			currentNode = currentNode.getNextNode();
 		}
 
 		return ret;
 	}
 
 	@Override
-	public LinkedBag<T> difference(LinkedBag<T> bag2) {
+	public LinkedBag<T> difference(BagInterface<T> bag2) {
+		if (bag2 == null) {
+			throw new InputMismatchException("input bag must not be null.");
+		}
+		
 		LinkedBag<T> ret = new LinkedBag<T>();
 
-		//copy current bag to ret
-		Node currentNode = this.firstNode;
-		while (currentNode != null) {
-			ret.add(currentNode.getData());
-			currentNode = currentNode.getNextNode();
+		//copy current bag to return bag
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
 		}
 
-		//remove item from parameter bag if it exists in the first bag
-		currentNode = bag2.firstNode;
-		while (currentNode != null) {
-			ret.remove(currentNode.getData());
-			currentNode = currentNode.getNextNode();
+		//replace tempArray data with bag2 data and remove bag2 data from current bag
+		tempArray = bag2.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.remove(tempArray[i]);
 		}
 
 		return ret;
