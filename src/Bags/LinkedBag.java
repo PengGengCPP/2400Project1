@@ -211,6 +211,17 @@ public class LinkedBag<T> implements BagInterface<T> {
 		}
 		return ret;
 	}
+
+	public ResizableArrayBag<T> toResizableArrayBag() {
+		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
+
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
+		}
+
+		return ret;
+	}
     
 	private class Node {
 		//accessible within the linkedbag class, not accessible to the client.

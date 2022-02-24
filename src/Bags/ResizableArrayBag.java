@@ -231,4 +231,15 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		}
 		return false;
 	}
+
+	public LinkedBag<T> toLinkedBag() {
+		LinkedBag<T> ret = new LinkedBag<T>();
+
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
+		}
+
+		return ret;
+	}
 }

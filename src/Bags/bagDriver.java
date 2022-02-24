@@ -42,6 +42,12 @@ public class bagDriver {
         bag3.remove("three");
         bag3.clear();
 
+        //converting linked bag to array bag and array bag to linked bag
+        LinkedBag<String> test1 = bag1.toLinkedBag();
+        printArray(test1.toArray());
+        ResizableArrayBag<String> test2 = bag2.toResizableArrayBag();
+        printArray(test2.toArray());
+
         
         //bag set operations will throw InputMismatchException if the input is null.
         ResizableArrayBag<String> b1 = new ResizableArrayBag<String>();
