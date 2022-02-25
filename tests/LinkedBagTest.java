@@ -101,6 +101,48 @@ public class LinkedBagTest {
         assertEquals(0, differenceBag.getFrequencyOf("three"));
         assertEquals(0, differenceBag.getFrequencyOf("four"));
         assertEquals(1, differenceBag.getFrequencyOf("five"));
+        
+        //testing if bag1 is empty and bag2 has objects
+
+        differenceBag = empty.difference(setTest2);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(0, differenceBag.getFrequencyOf("one"));
+        assertEquals(0, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
+
+        //testing if bag1 has objects and bag2 is empty
+
+        differenceBag = setTest1.difference(empty);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(2, differenceBag.getFrequencyOf("one"));
+        assertEquals(1, differenceBag.getFrequencyOf("two"));
+        assertEquals(1, differenceBag.getFrequencyOf("three"));
+        assertEquals(2, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
+
+        //testing if both bags are empty
+
+        differenceBag = empty.difference(empty);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(0, differenceBag.getFrequencyOf("one"));
+        assertEquals(0, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
+
+        //bag1 and bag2 are same but not empty
+        
+        differenceBag = setTest1.difference(setTest1);
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(0, differenceBag.getFrequencyOf("one"));
+        assertEquals(0, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
+
+    }
     }
 
     @Test
