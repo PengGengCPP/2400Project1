@@ -143,7 +143,7 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 			ret.add(tempArray[i]);
 		}
 
-		//replace tempArray data with bag2 data and remove bag2 data from current bag
+		//replace tempArray data with bag2 data and remove bag2 data from return bag
 		tempArray = bag2.toArray();
 		for (int i = 0; i < tempArray.length; i++) {
 			ret.remove(tempArray[i]);

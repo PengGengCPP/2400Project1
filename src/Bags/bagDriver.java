@@ -59,6 +59,12 @@ public class bagDriver {
         //set operation example
         ResizableArrayBag<String> union = bag1.union(bag2);
         printArray(union.toArray());
+
+        ResizableArrayBag<String> intersection = bag1.intersection(bag2);
+        printArray(intersection.toArray());
+
+        ResizableArrayBag<String> difference = bag1.difference(bag2);
+        printArray(difference.toArray());
         
         //bag set operations will throw InputMismatchException if the input is null.
         ResizableArrayBag<String> b1 = new ResizableArrayBag<String>();
