@@ -2,9 +2,6 @@ package Bags;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
-//todo: sanitize bag inputs to throw exception if input is null
-//todo: make bags compatible with eachother. likely will require changing interface.
-
 /**
  * Resizable Array Bag implementation.
  * Creates a resizable array bag that contains set operations of intersection, union, and difference.
@@ -233,5 +230,16 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 			return true;
 		}
 		return false;
+	}
+
+	public LinkedBag<T> toLinkedBag() {
+		LinkedBag<T> ret = new LinkedBag<T>();
+
+		T[] tempArray = this.toArray();
+		for (int i = 0; i < tempArray.length; i++) {
+			ret.add(tempArray[i]);
+		}
+
+		return ret;
 	}
 }
