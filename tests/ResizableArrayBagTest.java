@@ -260,4 +260,37 @@ public class ResizableArrayBagTest {
         assertEquals(4, unionBag.getFrequencyOf("four"));
         assertEquals(1, unionBag.getFrequencyOf("five"));
     }
+
+    @Test
+    public void testInteroperability() {
+        
+        ResizableArrayBag<String> unionBag = setTest1.union(setTest2.toLinkedBag());
+
+        System.out.println(Arrays.toString(unionBag.toArray()));
+        System.out.println(unionBag.getCurrentSize());
+        assertEquals(11, unionBag.getCurrentSize());
+        assertEquals(3, unionBag.getFrequencyOf("one"));
+        assertEquals(1, unionBag.getFrequencyOf("two"));
+        assertEquals(2, unionBag.getFrequencyOf("three"));
+        assertEquals(4, unionBag.getFrequencyOf("four"));
+        assertEquals(1, unionBag.getFrequencyOf("five"));
+
+
+        ResizableArrayBag<String> differenceBag = setTest1.difference(setTest2.toLinkedBag());
+        System.out.println(Arrays.toString(differenceBag.toArray()));
+        assertEquals(1, differenceBag.getFrequencyOf("one"));
+        assertEquals(1, differenceBag.getFrequencyOf("two"));
+        assertEquals(0, differenceBag.getFrequencyOf("three"));
+        assertEquals(0, differenceBag.getFrequencyOf("four"));
+        assertEquals(0, differenceBag.getFrequencyOf("five"));
+
+        ResizableArrayBag<String> intersectionBag = setTest1.intersection(setTest2.toLinkedBag());
+        System.out.println(Arrays.toString(intersectionBag.toArray()));
+        assertEquals(1, intersectionBag.getFrequencyOf("one"));
+        assertEquals(0, intersectionBag.getFrequencyOf("two"));
+        assertEquals(1, intersectionBag.getFrequencyOf("three"));
+        assertEquals(2, intersectionBag.getFrequencyOf("four"));
+        assertEquals(0, intersectionBag.getFrequencyOf("five"));
+    }
 }
+

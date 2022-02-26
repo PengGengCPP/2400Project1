@@ -12,7 +12,7 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 	private T[] bag; //array that will store the references for objects in the bag
 	private int numItems = 0;
 	private final int MAX_CAPACITY = 100000;
-	private final int DEFAULT_SIZE = 1;
+	private final int DEFAULT_SIZE = 25;
 	private boolean integrityOk = false;
 	//constructors
 
@@ -37,23 +37,41 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 
 	//methods
 
+	/**
+	 * Checks the integrity of the bag.
+	 * @throws SecurityException if the bag is corrupt.
+	 */
 	private void checkIntegrity() {
 		if (!integrityOk) {
 			throw new SecurityException("ResizableArrayBag is corrupt.");
 		}
 	}
 
+	/**
+	 * Doubles the size of the resizable array.
+	 * copies the items of the current array to an array of twice the size.
+	 */
 	private void doubleArrayCapacity() {
 		checkCapacity(this.bag.length*2);
 		this.bag = Arrays.copyOf(this.bag, this.bag.length*2);
 	}
 
+	/**
+	 * Checks Capacity of Resizable Array.
+	 * @param capacity
+	 * @throws IllegalStateException if the size of the bag is larger than allowed.
+	 */
 	private void checkCapacity(int capacity) {
 		if (capacity > MAX_CAPACITY) {
 			throw new IllegalStateException("Size of created bag exceeds the maximum allowed size of the bag of " + MAX_CAPACITY);
 		}
 	}
 
+	
+	/** 
+	 * @param bag2
+	 * @return ResizableArrayBag<T>
+	 */
 	@Override
 	public ResizableArrayBag<T> union(BagInterface<T> bag2) {
 		if (bag2 == null) {
@@ -74,6 +92,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @param bag2
+	 * @return ResizableArrayBag<T>
+	 */
 	@Override
 	public ResizableArrayBag<T> intersection(BagInterface<T> bag2) {
 		if (bag2 == null) {
@@ -101,6 +124,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @param bag2
+	 * @return ResizableArrayBag<T>
+	 */
 	@Override
 	public ResizableArrayBag<T> difference(BagInterface<T> bag2) {
 		if (bag2 == null) {
@@ -124,11 +152,19 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @return int
+	 */
 	@Override
 	public int getCurrentSize() {
 		return this.numItems;
 	}
 
+	
+	/** 
+	 * @return boolean
+	 */
 	@Override
 	public boolean isEmpty() {
 		if (this.getCurrentSize() == 0) {
@@ -137,6 +173,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return false;
 	}
 
+	
+	/** 
+	 * @param newEntry
+	 * @return boolean
+	 */
 	@Override
 	public boolean add(T newEntry) {
 		checkIntegrity();
@@ -154,6 +195,10 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		}
 	}
 
+	/**
+	 * Removes the most recent item that was put in the bag.
+	 * @return the item that was removed
+	 */
 	@Override
 	public T remove() {
 		checkIntegrity();
@@ -166,6 +211,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @param entry
+	 * @return boolean
+	 */
 	@Override
 	public boolean remove(T entry) {
 		checkIntegrity();
@@ -190,6 +240,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		}
 	}
 
+	
+	/** 
+	 * @param entry
+	 * @return Integer
+	 */
 	@Override
 	public Integer getFrequencyOf(T entry) {
 		int count = 0;
@@ -201,6 +256,11 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return count;
 	}
 
+	
+	/** 
+	 * @param entry
+	 * @return boolean
+	 */
 	@Override
 	public boolean contains(T entry) {
 		checkIntegrity();
@@ -212,6 +272,10 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return false;
 	}
 
+	
+	/** 
+	 * @return T[]
+	 */
 	@Override
 	public T[] toArray() {
 		@SuppressWarnings("unchecked")
@@ -224,6 +288,10 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @return boolean
+	 */
 	@Override
 	public boolean isFull() {
 		if (this.bag.length == this.numItems) {
@@ -232,6 +300,10 @@ public class ResizableArrayBag<T> implements BagInterface<T> {
 		return false;
 	}
 
+	/**
+	 * Converts the ResizableArrayBag to a LinkedBag.
+	 * @return LinkedBag with the contents of the bag which this method was called on.
+	 */
 	public LinkedBag<T> toLinkedBag() {
 		LinkedBag<T> ret = new LinkedBag<T>();
 

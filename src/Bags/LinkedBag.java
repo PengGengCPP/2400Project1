@@ -16,6 +16,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		this.numEntries = 0;
 	}
 
+	
+	/** 
+	 * @param bag2
+	 * @return LinkedBag<T>
+	 */
 	@Override
 	public LinkedBag<T> union(BagInterface<T> bag2) {
 		if (bag2 == null) {
@@ -36,6 +41,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @param bag2
+	 * @return LinkedBag<T>
+	 */
 	@Override
 	public LinkedBag<T> intersection(BagInterface<T> bag2) {
 		if (bag2 == null) {
@@ -63,6 +73,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @param bag2
+	 * @return LinkedBag<T>
+	 */
 	@Override
 	public LinkedBag<T> difference(BagInterface<T> bag2) {
 		if (bag2 == null) {
@@ -86,16 +101,29 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @return int
+	 */
 	@Override
 	public int getCurrentSize() {
 		return this.numEntries;
 	}
 
+	
+	/** 
+	 * @return boolean
+	 */
 	@Override
 	public boolean isFull() {
+		//will always return false because linked bag is dynamically resized. You can always add.
 		return false;
 	}
 
+	
+	/** 
+	 * @return boolean
+	 */
 	@Override
 	public boolean isEmpty() {
 		if (this.numEntries == 0) {
@@ -104,6 +132,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return false;
 	}
 
+	
+	/** 
+	 * @param newEntry
+	 * @return boolean
+	 */
 	@Override
 	public boolean add(T newEntry) {
 		try {
@@ -122,6 +155,10 @@ public class LinkedBag<T> implements BagInterface<T> {
 		}
 	}
 
+	/**
+	 * Removes the first item that was put into the bag.
+	 * @return the item removed.
+	 */
 	@Override
 	public T remove() {
 		//removing the first item in the chain
@@ -135,6 +172,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	
+	/** 
+	 * @param entry
+	 * @return boolean
+	 */
 	@Override
 	public boolean remove(T entry) {
 		//replace given node with first node, and then remove first node.
@@ -149,6 +191,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		}
 	}
 
+	/**
+	 * Returns the Node at which the entry is located in.
+	 * @param entry
+	 * @return Node
+	 */
 	private Node getReferenceTo(T entry) {
 		boolean found = false;
 		Node currentNode = this.firstNode;
@@ -170,6 +217,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		}
 	}
 
+	
+	/** 
+	 * @param entry
+	 * @return Integer
+	 */
 	@Override
 	public Integer getFrequencyOf(T entry) {
 		Node currentNode = this.firstNode;
@@ -183,6 +235,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return count;
 	}
 
+	
+	/** 
+	 * @param entry
+	 * @return boolean
+	 */
 	@Override
 	public boolean contains(T entry) {
 		Node currentNode = this.firstNode;
@@ -196,6 +253,10 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return false;
 	}
 
+	
+	/** 
+	 * @return T[]
+	 */
 	@Override
 	public T[] toArray() {
 		@SuppressWarnings("unchecked")
@@ -212,6 +273,10 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return ret;
 	}
 
+	/**
+	 * Converts the LinkedBag to a Resizable Array Bag.
+	 * @return ResizableArrayBag with the contents of the bag which this method was called on.
+	 */
 	public ResizableArrayBag<T> toResizableArrayBag() {
 		ResizableArrayBag<T> ret = new ResizableArrayBag<T>();
 
@@ -223,11 +288,11 @@ public class LinkedBag<T> implements BagInterface<T> {
 		return ret;
 	}
     
+	/**
+	 * Class that defines the Node object used for the implementation of the linked bag.
+	 */
 	private class Node {
 		//accessible within the linkedbag class, not accessible to the client.
-		/**
-		 * Class that defines the Node object used for the implementation of the linked bag.
-		 */
 		private T data;
 		private Node nextNode;
 

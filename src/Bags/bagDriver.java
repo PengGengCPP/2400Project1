@@ -5,9 +5,17 @@ import java.util.InputMismatchException;
 
 public class bagDriver {
 
+    
+    /** 
+     * @param arr
+     */
     public static void printArray(Object[] arr) {
         System.out.println(Arrays.toString(arr));
     }
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         //creating a ResizableArrayBag and LinkedBag of Strings
         ResizableArrayBag<String> bag1 = new ResizableArrayBag<>();
@@ -33,7 +41,7 @@ public class bagDriver {
         bag2.remove("oops");
         printArray(bag2.toArray());
         
-        //copying bag 1
+        //copying bag 1 (note: you can still modify the original object through the copied bag)
         ResizableArrayBag<String> bag3 = bag1.intersection(bag1);
         printArray(bag3.toArray());
 
@@ -48,6 +56,9 @@ public class bagDriver {
         ResizableArrayBag<String> test2 = bag2.toResizableArrayBag();
         printArray(test2.toArray());
 
+        //set operation example
+        ResizableArrayBag<String> union = bag1.union(bag2);
+        printArray(union.toArray());
         
         //bag set operations will throw InputMismatchException if the input is null.
         ResizableArrayBag<String> b1 = new ResizableArrayBag<String>();
