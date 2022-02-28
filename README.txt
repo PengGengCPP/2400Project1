@@ -15,4 +15,4 @@ Extra Features:
     -toResizableArrayBag and toLinkedBag
 
 Link to Index File: 2400Project1\javadoc\index.html
-Link to Video: #todo
+Link to Video: https://www.youtube.com/watch?v=VfDUb5-WBBg
